@@ -8,7 +8,9 @@ pipeline {
     stages {
         stage('build') {
             agent {
-                docker { image 'openjdk:11-jdk' }
+                docker {
+                    registryUrl 'https://docker.io'
+                    image 'openjdk:11-jdk' }
             }
             steps {
                 sh 'chmod +x gradlew && ./gradlew build jacocoTestReport'
