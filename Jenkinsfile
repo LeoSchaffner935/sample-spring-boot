@@ -16,14 +16,14 @@ pipeline {
                 sh 'chmod +x gradlew && ./gradlew build jacocoTestReport'
             }
         }
-        stage('sonarqube') {
-        /*agent {
+        /*stage('sonarqube') {
+        agent {
             docker { image 'sonar-scanner-cli:latest' }
-        }*/
+        }
             steps {
                 sh 'echo scanning!'
             }
-        }
+        }*/
         stage('docker build') {
             steps {
                 script {
