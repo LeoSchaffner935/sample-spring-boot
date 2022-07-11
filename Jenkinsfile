@@ -7,16 +7,17 @@ pipeline {
     }
     stages {
         stage('build') {
-            agent {
+            /*agent {
                 docker { image 'openjdk:11-jdk' }
-            }
+            }*/
             steps {
                 sh 'chmod +x gradlew && ./gradlew build jacocoTestReport'
             }
         }
         stage('sonarqube') {
-        agent {
-            docker { image '<some sonarcli image>' } }
+        /*agent {
+            docker { image '<some sonarcli image>' }
+        }*/
             steps {
                 sh 'echo scanning!'
             }
