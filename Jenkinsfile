@@ -24,16 +24,20 @@ pipeline {
         }
         stage('docker build') {
             steps {
-                sh 'echo docker build'
-                dockerImage = docker.build("$DOCKERIMAGE:${env.BUILD_NUMBER}")
+                script {
+                    sh 'echo docker build'
+                    dockerImage = docker.build("$DOCKERIMAGE:${env.BUILD_NUMBER}")
+                }
             }
         }
         stage('docker push') {
             steps {
-                sh 'echo docker push!'
-                docker.withRegistry('https://registry.hub.docker.com/','$ENV_DOCKER') {
-                    dockerImage.push("${env.BUILD_NUMBER}")
-                    dockerImage.push("latest")
+                script {
+                    sh 'echo docker push!'
+                    docker.withRegistry('https://registry.hub.docker.com/','$ENV_DOCKER') {
+                        dockerImage.push("${env.BUILD_NUMBER}")
+                        dockerImage.push("latest")
+                    }
                 }
             }
         }
