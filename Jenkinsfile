@@ -30,10 +30,11 @@ pipeline {
             steps {
                 sh 'echo docker push!'
                 }
-            }
+        }
         stage('Deploy App') {
             steps {
                 sh 'echo deploy to kubernetes'               
             }
+        }
     }
 }
