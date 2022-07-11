@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sample-spring-boot
+  namespace: leo-schaffner
 spec:
   replicas: 1 # 1 PODs at any given point of time
   selector:
@@ -15,7 +16,7 @@ spec:
     spec:
       containers:
         - name: springboot-sample
-          image: <Your Docker Image>:<Your Image Tag>
+          image: leoschaffner935/coglab:latest
           ports:
             - containerPort: 8080
 ---
@@ -23,6 +24,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sample-spring-boot-service
+  namespace: leo-schaffner
   labels:
     name: sample-spring-boot
 spec:
