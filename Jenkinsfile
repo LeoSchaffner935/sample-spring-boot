@@ -25,12 +25,13 @@ pipeline {
             }
         }*/
         stage('docker build') {
+            node {
             steps {
                 script {
                     sh 'echo docker build'
                     dockerImage = docker.build("$DOCKERIMAGE:${env.BUILD_NUMBER}")
                 }
-            }
+            }}
         }
         stage('docker push') {
             steps {
