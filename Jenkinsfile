@@ -25,15 +25,16 @@ pipeline {
             }
         }*/
         stage('docker build') {
-            node {
+            agent any
             steps {
                 script {
                     sh 'echo docker build'
                     dockerImage = docker.build("$DOCKERIMAGE:${env.BUILD_NUMBER}")
                 }
-            }}
+            }
         }
         stage('docker push') {
+            agent any
             steps {
                 script {
                     sh 'echo docker push!'
@@ -45,6 +46,7 @@ pipeline {
             }
         }
         stage('Deploy App') {
+            agent any
             steps {
                 sh 'echo deploy to kubernetes'
                 withKubeConfig(caCertificate: '', clusterName: "$EKS_CLUSTER_NAME", contextName: 'arn:aws:eks:us-east-1:855430746673:cluster/sre-lab', credentialsId: 'K8S', namespace: 'leo-schaffner', serverUrl: 'https://8175C01E797F39C77ED8AB94CD24986B.gr7.us-east-1.eks.amazonaws.com') {
