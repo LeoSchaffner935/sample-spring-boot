@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    tools {
-        gradle "MyGradle"
-    }
         environment {
         ENV_DOCKER = credentials('DockerHub')
         DOCKERIMAGE = "leoschaffner935/coglab"
@@ -36,7 +33,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo docker push!'
-                    docker.withRegistry('https://registry.hub.docker.com/','$ENV_DOCKER') {
+                    docker.withRegistry('https://registry.hub.docker.com/',"$ENV_DOCKER") {
                         dockerImage.push("${env.BUILD_NUMBER}")
                         dockerImage.push("latest")
                     }
