@@ -34,7 +34,13 @@ pipeline {
         }
         stage('docker push') {
             steps {
-                sh 'echo docker push!'
+                script {
+                    sh 'echo docker push!'
+                    docker.withRegistry('https://registry.hub.docker.com/','$ENV_DOCKER') {
+                        dockerImage.push("${env.BUILD_NUMBER}")
+                        dockerImage.push("latest")
+                    }
+                }
             }
         }
         stage('Deploy App') {
