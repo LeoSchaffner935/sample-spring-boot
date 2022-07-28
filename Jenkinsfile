@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
         environment {
         ENV_DOCKER = credentials('DockerHub')
         DOCKERIMAGE = "leoschaffner935/coglab"
@@ -23,7 +23,10 @@ pipeline {
         }
         stage('docker build') {
             steps {
-                sh 'echo docker build'
+                script {
+                    sh 'echo docker build'
+                    dockerImage = docker.build("$DOCKERIMAGE:${env.BUILD_NUMBER}")
+                }
             }
         }
         stage('docker push') {
