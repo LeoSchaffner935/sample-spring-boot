@@ -1,7 +1,7 @@
 pipeline {
     agent any
         environment {
-        ENV_DOCKER = credentials('DockerHub')
+        //ENV_DOCKER = credentials('DockerHub')
         DOCKERIMAGE = "leoschaffner935/coglab"
         EKS_CLUSTER_NAME = "demo-cluster"
         }
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo docker push!'
-                    docker.withRegistry('https://registry.hub.docker.com/',"$ENV_DOCKER") {
+                    docker.withRegistry('https://registry.hub.docker.com/', 'DockerHub') {
                         dockerImage.push("${env.BUILD_NUMBER}")
                         dockerImage.push("latest")
                     }
