@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        gradle "MyGradle"
+    }
         environment {
         ENV_DOCKER = credentials('DockerHub')
         DOCKERIMAGE = "leoschaffner935/coglab"
