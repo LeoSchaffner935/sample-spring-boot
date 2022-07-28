@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        scannerHome 'MySonar'
+    }
         environment {
         //ENV_DOCKER = credentials('DockerHub')
         DOCKERIMAGE = "leoschaffner935/coglab"
@@ -16,10 +19,11 @@ pipeline {
         }
         stage('sonarqube') {
         agent {
-            docker { image 'sonarsource/sonar-scanner-cli:latest' } }
+            docker { image 'sonarsource/sonar-scanner-cli:latest' }
+        }
             steps {
                 sh 'echo scanning!'
-                def scannerHome = tool 'MySonar';
+                //def scannerHome = tool 'MySonar';
                 withSonarQubeEnv('MySonarQube') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
