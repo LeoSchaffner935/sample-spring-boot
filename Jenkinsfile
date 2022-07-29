@@ -21,10 +21,10 @@ pipeline {
             steps {
                 script {
                     sh 'echo scanning!'
-                    scannerHome = tool 'MySonar';
+                    /*scannerHome = tool 'MySonar';
                     withSonarQubeEnv('MySonarQube') {
                         sh "${scannerHome}/bin/sonar-scanner"
-                    }
+                    }*/
                 }
             }
         }
