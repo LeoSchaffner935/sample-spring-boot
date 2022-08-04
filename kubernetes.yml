@@ -31,5 +31,5 @@ spec:
       targetPort: 8080
       protocol: TCP
   selector:
-    app: sample-spring-boot-app
+    app: sample-spring-boot
   type: LoadBalancer # Type loadbalancer will use the underlying cloud provider to create an external url for accessing the app
