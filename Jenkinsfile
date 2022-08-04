@@ -1,34 +1,26 @@
 pipeline {
-    agent any
+    agent none
         environment {
-        //ENV_DOCKER = credentials('DockerHub')
-        DOCKERIMAGE = "leoschaffner935/coglab"
-        EKS_CLUSTER_NAME = "demo-cluster"
+            ENV_DOCKER = credentials('dockerhub')
+            DOCKERIMAGE = "leoschaffner935/coglab"
+            EKS_CLUSTER_NAME = "demo-cluster"
         }
     stages {
         stage('build') {
-            agent {
-                docker { image 'openjdk:11-jdk' }
-            }
+            agent { docker { image 'openjdk:11-jdk' } }
             steps {
                 sh 'chmod +x gradlew && ./gradlew build jacocoTestReport'
             }
         }
         stage('sonarqube') {
-        agent {
-            docker { image 'sonarsource/sonar-scanner-cli:latest' }
-        }
+        agent { docker { image 'sonarsource/sonar-scanner-cli:latest' } }
             steps {
-                script {
-                    sh 'echo scanning!'
-                    /*scannerHome = tool 'MySonar';
-                    withSonarQubeEnv('MySonarQube') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }*/
-                }
+                sh 'echo scanning!'
+                sh 'sonar-scanner'
             }
         }
         stage('docker build') {
+            agent any
             steps {
                 script {
                     sh 'echo docker build'
@@ -37,6 +29,7 @@ pipeline {
             }
         }
         stage('docker push') {
+            agent any
             steps {
                 script {
                     sh 'echo docker push!'
