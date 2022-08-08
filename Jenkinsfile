@@ -56,6 +56,7 @@ pipeline {
                     sh 'aws eks update-kubeconfig --name sre-primer'
                     sh 'chmod +x deployment-status.sh && ./deployment-status.sh'
                     sh "kubectl set image deployment sample-spring-boot -n leo-schaffner springboot-sample=$ENV_DOCKER_USR/$DOCKERIMAGE:$BUILD_ID"
+                    sh 'kubectl get all -n leo-schaffner'
                 }
             }
         }
