@@ -47,12 +47,11 @@ pipeline {
             steps {
                 sh 'echo deploy to kubernetes!'
                 /*withKubeConfig(clusterName: "$EKS_CLUSTER_NAME", contextName: 'arn:aws:eks:us-east-1:855430746673:cluster/sre-lab', credentialsId: 'k8s', namespace: 'leo-schaffner', serverUrl: 'https://8175C01E797F39C77ED8AB94CD24986B.gr7.us-east-1.eks.amazonaws.com') {
-                    sh 'kubectl apply -f /var/libs/jenkins/workspace/sample-spring-boot/kubernetes.yml'
+                    sh 'kubectl apply -f kubernetes.yml'
                 }*/
                 withAWS(credentials: 'aws-credentials') {
                     sh 'aws eks update-kubeconfig --name sre-primer'
-                    // sh 'chmod +x deployment-status.sh && ./deployment-status.sh'
-                    sh 'kubectl apply -f kubernetes.yml -n leo-schaffner'
+                    sh 'chmod +x deployment-status.sh && ./deployment-status.sh'
                     sh "kubectl set image deployment sample-spring-boot -n leo-schaffner springboot-sample=$ENV_DOCKER_USR/$DOCKERIMAGE:$BUILD_ID"
                 }
             }
