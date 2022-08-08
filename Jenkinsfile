@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh 'echo scanning!'
                 // unstash 'build'
-                sh 'sonar-scanner'
+                sh 'sonar-scanner -X'
             }
         }
         stage('docker build') {
