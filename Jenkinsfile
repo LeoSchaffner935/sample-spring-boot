@@ -45,7 +45,7 @@ pipeline {
         }
         stage('Deploy App') {
             agent { docker { image 'jshimko/kube-tools-aws:3.8.1'
-            // args '-u root --privileged'
+            args '-u root --privileged'
             } }
             steps {
                 sh 'echo deploy to kubernetes!'
