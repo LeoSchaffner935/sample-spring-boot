@@ -4,6 +4,7 @@ pipeline {
         ENV_DOCKER = credentials('dockerhub')
         DOCKERIMAGE = "coglab"
         EKS_CLUSTER_NAME = "cog-cluster"
+        SONAR_TOKEN = credentials('sonar')
     }
     stages {
         stage('build') {
